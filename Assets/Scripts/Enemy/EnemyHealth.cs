@@ -5,13 +5,17 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
-    [SerializeField] private int _health;
-    [SerializeField] private int _maxHealth;
+    public event Action<int> Changed;
 
-    public bool IsDead => _health <= 0;
+    [field:SerializeField] public int MaxHealth {  get; private set; }
+
+    [field:SerializeField] public int Health {  get; private set; }
+
+    public bool IsDead => Health <= 0;
 
     public void Lose(int damage)
     {
-        _health = Mathf.Clamp(_health - damage, 0, _maxHealth);
+        Health = Mathf.Clamp(Health - damage, 0, MaxHealth);
+        Changed?.Invoke(Health);
     }
 }

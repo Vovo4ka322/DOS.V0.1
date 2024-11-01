@@ -11,11 +11,11 @@ public class Enemy : MonoBehaviour
     private Transform _target;
 
     public event Action Hit;
-    public event Action<EnemyType> Dead;
-
-    public EnemyType Type => _type;
+    public event Action<EnemyType> Died;
 
     [field:SerializeField] public EnemyHealth Health {  get; private set; }
+
+    public EnemyType Type => _type;
 
     public Transform Position => transform;
 
@@ -24,7 +24,7 @@ public class Enemy : MonoBehaviour
         _enemyMovement.Move(_target);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider collision)
     {
         if(collision.gameObject.TryGetComponent(out Core core))
         {
@@ -33,7 +33,7 @@ public class Enemy : MonoBehaviour
 
             if (Health.IsDead)
             {
-                Dead?.Invoke(_type);
+                Died?.Invoke(_type);
                 Destroy(gameObject);
             }
         }

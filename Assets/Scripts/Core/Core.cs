@@ -51,7 +51,11 @@ public class Core : MonoBehaviour
         }
     }
 
-    public void RemoveRigidbody() => Destroy(_rigidbody);
+    public void RemoveRigidbody()
+    {
+        Destroy(_rigidbody);
+        Collider.isTrigger = true;
+    }
 
     //private IEnumerator MoveToTarget(List<Transform> positionsToMove, int currentPoint, Vector3 lastPosition)
     //{

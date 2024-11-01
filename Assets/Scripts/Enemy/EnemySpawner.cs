@@ -13,22 +13,6 @@ public class EnemySpawner : MonoBehaviour
         SpawnDefault();
     }
 
-    //private void OnEnable()
-    //{
-    //    foreach (Enemy enemy in _enemyPrefabs)
-    //    {
-    //        enemy.Health.Dead += Spawn;
-    //    }
-    //}
-
-    //private void OnDisable()
-    //{
-    //    foreach (Enemy enemy in _enemyPrefabs)
-    //    {
-    //        enemy.Health.Dead -= Spawn;
-    //    }
-    //}
-
     private void Spawn(EnemyType enemyType = EnemyType.Lvl1)
     {
         Enemy enemy = _enemyFactory.Get(enemyType, _spawnPoint.position);
@@ -47,6 +31,6 @@ public class EnemySpawner : MonoBehaviour
     {
         _gun.Init(enemy);
         enemy.Init(_gun.transform);
-        enemy.Dead += Spawn;   
+        enemy.Died += Spawn;   
     }
 }
