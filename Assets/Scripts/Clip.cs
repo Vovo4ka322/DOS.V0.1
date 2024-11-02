@@ -29,7 +29,7 @@ public class Clip : MonoBehaviour
     {
         if (_cores.Count > 0)
         {
-            _cores[0].Move(target);
+            _cores[0].MoveToEnemy(target);
         }
     }
 
@@ -51,6 +51,7 @@ public class Clip : MonoBehaviour
         for (int i = 0; i < _cores.Count; i++)
         {
             _cores[i].transform.position = places[places.Count - 1 - i].transform.position;
+            //_cores[i].Mover.Move(_cores[i].transform, places[places.Count - 1 - i].transform.position, 2f);
         }
     }
 }

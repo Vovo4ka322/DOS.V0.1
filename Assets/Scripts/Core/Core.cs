@@ -16,6 +16,8 @@ public class Core : MonoBehaviour
     private int _minValue = 1;
     private int _maxValue = 4;
 
+    [field: SerializeField] public CoreMover Mover {  get; private set; }
+
     [field: SerializeField] public Collider Collider { get; private set; }
 
     [field: SerializeField] public int Value { get; private set; }
@@ -29,9 +31,10 @@ public class Core : MonoBehaviour
         SetData(Value);
     }
 
-    public void Move(Vector3 target)
+    public void MoveToEnemy(Vector3 target)
     {
-        transform.position = target;
+        //transform.position = target;
+        Mover.Move(transform, target, 2f);
     }
      
     //public void Move(List<Transform> positionsToMove, int currentPoint, Vector3 lastPosition)
