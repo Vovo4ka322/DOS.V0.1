@@ -33,8 +33,8 @@ public class Core : MonoBehaviour
 
     public void MoveToEnemy(Vector3 target)
     {
-        //transform.position = target;
-        Mover.Move(transform, target, 2f);
+        transform.position = target;
+        //Mover.Move(transform, target, 2f);
     }
      
     //public void Move(List<Transform> positionsToMove, int currentPoint, Vector3 lastPosition)

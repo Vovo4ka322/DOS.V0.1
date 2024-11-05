@@ -32,10 +32,10 @@ public class CoreMerger : MonoBehaviour
                 color = _yellowCoreValue;
             }
 
-            DeleteCore(cores, cores[lastIndex]);
-            DeleteCore(cores, cores[lastIndex - 1]);
+            cores.Add(_spawner.Spawn(color, cores[lastIndex].transform.position));
 
-            cores.Add(_spawner.Spawn(color, _spawnPosition.position));
+            DeleteCore(cores, cores[lastIndex]);    //particleSystem в позиции cores[lastIndex]   
+            DeleteCore(cores, cores[lastIndex - 1]);
 
             for (int i = 0; i < cores.Count; i++)
             {

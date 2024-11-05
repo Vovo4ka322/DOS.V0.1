@@ -7,6 +7,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private Transform _spawnPoint;
     [SerializeField] private Gun _gun;
     [SerializeField] private EnemyFactory _enemyFactory;
+    [SerializeField] private SplineFollower _splineFollower;
 
     private void Awake()
     {
@@ -31,6 +32,7 @@ public class EnemySpawner : MonoBehaviour
     {
         _gun.Init(enemy);
         enemy.Init(_gun.transform);
+        _splineFollower.Init(enemy);
         enemy.Died += Spawn;   
     }
 }

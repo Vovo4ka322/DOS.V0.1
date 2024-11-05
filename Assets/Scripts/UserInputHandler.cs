@@ -9,8 +9,9 @@ public class UserInputHandler : MonoBehaviour
     [SerializeField] private CoreFactory _factory;
     [SerializeField] private Gun _gun;
     [SerializeField] private AttackButton _attackButton;
+    [SerializeField] private Cooldown _cooldown;
 
-    private Coroutine _coroutine;
+    public int LineIndex { get; private set; }
 
     private void OnEnable()
     {
@@ -26,27 +27,31 @@ public class UserInputHandler : MonoBehaviour
 
     private void OnRemoved(Line line)
     {
-        if (_clip.IsFullQuantity == false)
+        if (_clip.IsFullQuantity == false && _cooldown.CanUse)
         {
-            int lineIndex = _factory.PlacesForSeat.IndexOf(line);
+            LineIndex = _factory.PlacesForSeat.IndexOf(line);
 
-            Core core = _factory.Cores[lineIndex].Dequeue();
-
-            Physics.IgnoreCollision(core.Collider, line.Collider);
+            Core core = _factory.Cores[LineIndex].Dequeue();
 
             core.RemoveRigidbody();
 
-            _coroutine = StartCoroutine(_factory.CreateOneCore(lineIndex));
+            StartCoroutine(_factory.CreateOneCore(LineIndex));
 
             _clip.Add(core);
 
-            _clip.FindMatch();
+            StartCoroutine(_clip.FindMatch(core));
+
+            _cooldown.LaunchTimer();
         }
     }
 
     private void OnShoot()
     {
-        _attackButton.PlayAnimation();
-        _gun.Shoot();
+        if (_cooldown.CanUse)
+        {
+            _attackButton.PlayAnimation();
+            _gun.Shoot();
+            _cooldown.LaunchTimer();
+        }
     }
 }

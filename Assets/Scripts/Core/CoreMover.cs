@@ -3,8 +3,19 @@ using UnityEngine;
 
 public class CoreMover : MonoBehaviour
 {
-    public void Move(Transform transform, Vector3 target, float duration)
+    public void MoveToClip(Transform core, Vector3 firstTarget, float duration, Vector3 secondTarget, Vector3 thirdTarget)
     {
-        transform.DOMove(target, duration);
+        Sequence sequence = DOTween.Sequence();
+
+        duration /= 3;
+
+        sequence.Append(core.DOMove(firstTarget, duration));
+        sequence.Append(core.DOMove(secondTarget, duration));
+        sequence.Append(core.DOMove(thirdTarget, duration));
+    }
+
+    public void MoveIntoClip(Transform core, Vector3 target, float duration)
+    {
+        core.DOMove(target, duration);
     }
 }
