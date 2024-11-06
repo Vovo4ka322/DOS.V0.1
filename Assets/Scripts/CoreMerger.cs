@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,8 +13,10 @@ public class CoreMerger : MonoBehaviour
     private int _redCoreValue = 3;
     private int _yellowCoreValue = 4;
 
+    public event Action<Core, Core, Core> Merged;
+
     public void Merge(List<Core> cores)
-    {      
+    {
         while (CanMerge(cores))
         {
             int color = -1;
@@ -32,15 +35,18 @@ public class CoreMerger : MonoBehaviour
                 color = _yellowCoreValue;
             }
 
-            cores.Add(_spawner.Spawn(color, cores[lastIndex].transform.position));
+            //cores.Add(_spawner.Spawn(color, cores[lastIndex].transform.position));
 
-            DeleteCore(cores, cores[lastIndex]);    //particleSystem в позиции cores[lastIndex]   
-            DeleteCore(cores, cores[lastIndex - 1]);
+            Merged?.Invoke(cores[lastIndex], cores[lastIndex - 1], _spawner.Spawn(color, cores[lastIndex].transform.position));
 
-            for (int i = 0; i < cores.Count; i++)
-            {
-                cores[i].RemoveRigidbody();
-            }
+            //DeleteCore(cores, cores[lastIndex]);    //particleSystem в позиции cores[lastIndex]   
+            //DeleteCore(cores, cores[lastIndex - 1]);
+
+        }
+
+        for (int i = 0; i < cores.Count; i++)
+        {
+            cores[i].RemoveRigidbody();
         }
     }
 

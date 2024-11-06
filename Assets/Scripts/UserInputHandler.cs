@@ -9,6 +9,9 @@ public class UserInputHandler : MonoBehaviour
     [SerializeField] private AttackButton _attackButton;
     [SerializeField] private Cooldown _cooldown;
 
+    private float _timeToPressButton = 0.4f;
+    private float _timeToPressCore = 0.2f;
+
     public int LineIndex { get; private set; }
 
     private void OnEnable()
@@ -39,7 +42,7 @@ public class UserInputHandler : MonoBehaviour
 
             StartCoroutine(_clip.FindMatch(core));
 
-            _cooldown.LaunchTimer();
+            _cooldown.LaunchTimer(_timeToPressCore);
         }
     }
 
@@ -49,7 +52,7 @@ public class UserInputHandler : MonoBehaviour
         {
             _attackButton.PlayAnimation();
             _gun.Shoot();
-            _cooldown.LaunchTimer();
+            _cooldown.LaunchTimer(_timeToPressButton);
         }
     }
 }

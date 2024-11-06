@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Cooldown : MonoBehaviour
 {
-    [SerializeField] private float _time;
-
     public bool CanUse {  get; private set; }
 
     private void Awake()
@@ -13,13 +11,13 @@ public class Cooldown : MonoBehaviour
         CanUse = true;
     }
 
-    public void LaunchTimer() => StartCoroutine(StartTimer());
+    public void LaunchTimer(float time) => StartCoroutine(StartTimer(time));
 
-    private IEnumerator StartTimer()
+    private IEnumerator StartTimer(float time)
     {
         CanUse = false;
 
-        yield return new WaitForSeconds(_time);
+        yield return new WaitForSeconds(time);
 
         CanUse = true;
     }

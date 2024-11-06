@@ -9,7 +9,7 @@ public class CoreFactory : MonoBehaviour
     [SerializeField] private List<Line> _placesForSeat;
 
     private List<Queue<Core>> _cores = new();
-    private float _timeUntilSpawn = 0.7f;
+    private float _timeUntilSpawn = 1f;
 
     public List<Queue<Core>> Cores => _cores;
 

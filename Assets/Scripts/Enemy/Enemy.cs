@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour
     private Transform _target;
 
     public event Action Hit;
+    public event Action<Ship> Touched;
     public event Action<EnemyType> Died;
 
     [field:SerializeField] public EnemyHealth Health {  get; private set; }
@@ -17,9 +18,13 @@ public class Enemy : MonoBehaviour
 
     public Transform Position => transform;
 
-    private void Update()
+    private void OnCollisionEnter(Collision collision)
     {
-        _enemyMovement.Move(_target);
+        if(collision.gameObject.TryGetComponent(out Ship ship))
+        {
+            Touched?.Invoke(ship);
+            Debug.Log("Коснулся");
+        }
     }
 
     private void OnTriggerEnter(Collider collision)
@@ -35,6 +40,11 @@ public class Enemy : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+    }
+
+    private void Update()
+    {
+        _enemyMovement.Move(_target);
     }
 
     public void Init(Transform target)

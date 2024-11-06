@@ -5,24 +5,51 @@ using UnityEngine;
 public class Clip : MonoBehaviour
 {
     [SerializeField] private CoreMerger _merger;
-    [SerializeField] private List<Core> _cores;
     [SerializeField] private List<Transform> _placesForSeat;
     [SerializeField] private List<Line> _lines;
     [SerializeField] private UserInputHandler _userInputHandler;
     [SerializeField] private float _speedToClip;
     [SerializeField] private float _speedIntoClip = 0.1f;
 
-    private List<Core> _coresForMerge;
+    [SerializeField] private List<Core> _cores;
+    private List<Core> _reservedCores = new();
+
     private int _maxQuantity = 6;
     private int _firstLine = 0;
     private int _secondLine = 1;
     private int _thirdLine = 2;
     private int _fourthLine = 3;
 
-    public bool IsFullQuantity => _cores.Count == _maxQuantity;
+    public bool IsFullQuantity => _reservedCores.Count >= _maxQuantity;
+
+    private void OnEnable()
+    {
+        _merger.Merged += UpdateCores;
+    }
+
+    private void OnDisable()
+    {
+        _merger.Merged -= UpdateCores;
+    }
+
+    private void UpdateCores(Core coreForDelete, Core coreForDelete2, Core newCore)
+    {
+        _reservedCores.Remove(coreForDelete);
+        _cores.Remove(coreForDelete);
+        Destroy(coreForDelete.gameObject);
+
+        _reservedCores.Remove(coreForDelete2);
+        _cores.Remove(coreForDelete2);
+        Destroy(coreForDelete2.gameObject);
+
+        _reservedCores.Add(newCore);
+        _cores.Add(newCore);
+    }
 
     public void Add(Core core)
     {
+        _reservedCores.Add(core);
+
         var last = core;
 
         if (_cores.Count <= _maxQuantity)
@@ -53,13 +80,23 @@ public class Clip : MonoBehaviour
     public void RemoveFirstElement(Transform target)
     {
         if (_cores.Count > 0)
+        {
             _cores[0].MoveToEnemy(target);
+            Debug.Log("core движется к цели");
+        }
     }
 
     public void Remove()
     {
         if (_cores.Count > 0)
-            _merger.DeleteCore(_cores, _cores[0]);
+        {
+            Core core = _cores[0];
+
+            _reservedCores.Remove(core);
+            //Destroy(core.gameObject);
+            _cores.Remove(core);
+            Destroy(core.gameObject);
+        }
     }
 
     private void Insert()
