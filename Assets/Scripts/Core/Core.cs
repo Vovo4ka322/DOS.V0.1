@@ -11,8 +11,8 @@ public class Core : MonoBehaviour
     [SerializeField] private List<CoreDataAppropriator> _appropriators;
     [SerializeField] private float _speed;
     [SerializeField] private int _damage;
+    [SerializeField] private float _flightSpeed = 100f;
 
-    private Coroutine _coroutine;
     private int _minValue = 1;
     private int _maxValue = 4;
 
@@ -31,16 +31,10 @@ public class Core : MonoBehaviour
         SetData(Value);
     }
 
-    public void MoveToEnemy(Vector3 target)
+    public void MoveToEnemy(Transform target)
     {
-        transform.position = target;
-        //Mover.Move(transform, target, 2f);
+        Mover.MoveToEnemy(transform, target, _flightSpeed);
     }
-     
-    //public void Move(List<Transform> positionsToMove, int currentPoint, Vector3 lastPosition)
-    //{
-    //    _coroutine = StartCoroutine(MoveToTarget(positionsToMove, currentPoint, lastPosition));
-    //}
 
     public void SetData(int value)
     {
@@ -59,31 +53,4 @@ public class Core : MonoBehaviour
         Destroy(_rigidbody);
         Collider.isTrigger = true;
     }
-
-    //private IEnumerator MoveToTarget(List<Transform> positionsToMove, int currentPoint, Vector3 lastPosition)
-    //{
-    //    for (float t = 0; t <= 1; t += Time.deltaTime * _speed)
-    //    {
-    //        transform.position = Vector3.Lerp(transform.position, positionsToMove[currentPoint].position, t);
-
-    //        Vector3 currentPosition = positionsToMove[currentPoint].position;
-
-    //        if (Vector3.Distance(transform.position, currentPosition) <= 0.01f)
-    //        {
-    //            currentPoint++;
-    //            if (currentPoint >= positionsToMove.Count)
-    //            {
-    //                Collider.enabled = false;
-    //                transform.position = lastPosition;
-
-    //                if (_coroutine != null)
-    //                    StopCoroutine(_coroutine);
-
-    //                Collider.enabled = true;
-    //            }
-    //        }
-
-    //        yield return null;
-    //    }
-    //}
 }

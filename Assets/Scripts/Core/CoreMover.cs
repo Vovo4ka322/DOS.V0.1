@@ -18,4 +18,9 @@ public class CoreMover : MonoBehaviour
     {
         core.DOMove(target, duration);
     }
+
+    public void MoveToEnemy(Transform core, Transform target, float speed)
+    {
+        core.DOMove(target.position, speed).SetSpeedBased();
+    }
 }

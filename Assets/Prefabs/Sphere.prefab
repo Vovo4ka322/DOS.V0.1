@@ -137,6 +137,7 @@ MonoBehaviour:
     _damage: 16
   _speed: 0.2
   _damage: 0
+  _flightSpeed: 100
   <Mover>k__BackingField: {fileID: -2195730447274825697}
   <Collider>k__BackingField: {fileID: 3946297207111071744}
   <Value>k__BackingField: 0
@@ -179,3 +180,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 595a7dd75d509d14fb28efb926c4d99e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _coreFlight: {fileID: 0}

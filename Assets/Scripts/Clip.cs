@@ -1,9 +1,6 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using UnityEngine.SocialPlatforms.Impl;
 
 public class Clip : MonoBehaviour
 {
@@ -13,18 +10,16 @@ public class Clip : MonoBehaviour
     [SerializeField] private List<Line> _lines;
     [SerializeField] private UserInputHandler _userInputHandler;
     [SerializeField] private float _speedToClip;
+    [SerializeField] private float _speedIntoClip = 0.1f;
 
+    private List<Core> _coresForMerge;
     private int _maxQuantity = 6;
+    private int _firstLine = 0;
+    private int _secondLine = 1;
+    private int _thirdLine = 2;
+    private int _fourthLine = 3;
 
     public bool IsFullQuantity => _cores.Count == _maxQuantity;
-
-    public Core Core()
-    {
-        if (_cores.Count > 0)
-            return _cores[0];
-
-        return null;
-    }
 
     public void Add(Core core)
     {
@@ -32,14 +27,14 @@ public class Clip : MonoBehaviour
 
         if (_cores.Count <= _maxQuantity)
         {
-            if (_userInputHandler.LineIndex == 0)
-                last.Mover.MoveToClip(last.transform, _lines[0].GetPoints[0].position, _speedToClip, _lines[0].GetPoints[1].position, _placesForSeat[0].transform.position);
-            else if (_userInputHandler.LineIndex == 1)
-                last.Mover.MoveToClip(last.transform, _lines[1].GetPoints[0].position, _speedToClip, _lines[1].GetPoints[1].position, _placesForSeat[0].transform.position);
-            else if (_userInputHandler.LineIndex == 2)
-                last.Mover.MoveToClip(last.transform, _lines[2].GetPoints[0].position, _speedToClip, _lines[2].GetPoints[1].position, _placesForSeat[0].transform.position);
-            else if (_userInputHandler.LineIndex == 3)
-                last.Mover.MoveToClip(last.transform, _lines[3].GetPoints[0].position, _speedToClip, _lines[3].GetPoints[1].position, _placesForSeat[0].transform.position);
+            if (_userInputHandler.LineIndex == _firstLine)
+                last.Mover.MoveToClip(last.transform, _lines[_firstLine].GetPoints[0].position, _speedToClip, _lines[_firstLine].GetPoints[1].position, _placesForSeat[0].transform.position);
+            else if (_userInputHandler.LineIndex == _secondLine)
+                last.Mover.MoveToClip(last.transform, _lines[_secondLine].GetPoints[0].position, _speedToClip, _lines[_secondLine].GetPoints[1].position, _placesForSeat[0].transform.position);
+            else if (_userInputHandler.LineIndex == _thirdLine)
+                last.Mover.MoveToClip(last.transform, _lines[_thirdLine].GetPoints[0].position, _speedToClip, _lines[_thirdLine].GetPoints[1].position, _placesForSeat[0].transform.position);
+            else if (_userInputHandler.LineIndex == _fourthLine)
+                last.Mover.MoveToClip(last.transform, _lines[_fourthLine].GetPoints[0].position, _speedToClip, _lines[_fourthLine].GetPoints[1].position, _placesForSeat[0].transform.position);
         }
     }
 
@@ -55,7 +50,7 @@ public class Clip : MonoBehaviour
         }
     }
 
-    public void RemoveFirstElement(Vector3 target)
+    public void RemoveFirstElement(Transform target)
     {
         if (_cores.Count > 0)
             _cores[0].MoveToEnemy(target);
@@ -80,14 +75,14 @@ public class Clip : MonoBehaviour
 
             for (int i = 0; i < _cores.Count; i++)
             {
-                if (_userInputHandler.LineIndex == 0)
-                    _cores[i].Mover.MoveIntoClip(_cores[i].transform, places[places.Count - 1 - i].transform.position, 0.1f);
-                else if (_userInputHandler.LineIndex == 1)
-                    _cores[i].Mover.MoveIntoClip(_cores[i].transform, places[places.Count - 1 - i].transform.position, 0.1f);
-                else if (_userInputHandler.LineIndex == 2)
-                    _cores[i].Mover.MoveIntoClip(_cores[i].transform, places[places.Count - 1 - i].transform.position, 0.1f);
-                else if (_userInputHandler.LineIndex == 3)
-                    _cores[i].Mover.MoveIntoClip(_cores[i].transform, places[places.Count - 1 - i].transform.position, 0.1f);
+                if (_userInputHandler.LineIndex == _firstLine)
+                    _cores[i].Mover.MoveIntoClip(_cores[i].transform, places[places.Count - 1 - i].transform.position, _speedIntoClip);
+                else if (_userInputHandler.LineIndex == _secondLine)
+                    _cores[i].Mover.MoveIntoClip(_cores[i].transform, places[places.Count - 1 - i].transform.position, _speedIntoClip);
+                else if (_userInputHandler.LineIndex == _thirdLine)
+                    _cores[i].Mover.MoveIntoClip(_cores[i].transform, places[places.Count - 1 - i].transform.position, _speedIntoClip);
+                else if (_userInputHandler.LineIndex == _fourthLine)
+                    _cores[i].Mover.MoveIntoClip(_cores[i].transform, places[places.Count - 1 - i].transform.position, _speedIntoClip);
             }
         }
     }

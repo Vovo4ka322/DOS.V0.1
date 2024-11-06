@@ -6,10 +6,7 @@ public class Gun : MonoBehaviour
 {
     [SerializeField] private Core _core;
     [SerializeField] private Clip _clip;
-
     [SerializeField] private Enemy _enemy;
-
-    public Core Core => _core;
 
     private void OnDisable()
     {
@@ -18,7 +15,7 @@ public class Gun : MonoBehaviour
 
     public void Shoot()
     {
-        _clip.RemoveFirstElement(_enemy.transform.position);
+        _clip.RemoveFirstElement(_enemy.transform);
     }
 
     public void Init(Enemy enemy)
