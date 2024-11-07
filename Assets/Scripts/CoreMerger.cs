@@ -7,6 +7,7 @@ public class CoreMerger : MonoBehaviour
     [SerializeField] private Clip _clip;
     [SerializeField] private CoreSpawner _spawner;
     [SerializeField] private Transform _spawnPosition;
+    [SerializeField] private Score _score;
 
     private int _greenCoreValue = 1;
     private int _blueCoreValue = 2;
@@ -25,35 +26,27 @@ public class CoreMerger : MonoBehaviour
             if (cores[lastIndex].Value == _greenCoreValue)
             {
                 color = _blueCoreValue;
+                _score.Change(2);
             }
             else if (cores[lastIndex].Value == _blueCoreValue)
             {
                 color = _redCoreValue;
+                _score.Change(4);
             }
             else if (cores[lastIndex].Value == _redCoreValue)
             {
                 color = _yellowCoreValue;
+                _score.Change(6);
             }
 
-            //cores.Add(_spawner.Spawn(color, cores[lastIndex].transform.position));
-
             Merged?.Invoke(cores[lastIndex], cores[lastIndex - 1], _spawner.Spawn(color, cores[lastIndex].transform.position));
-
-            //DeleteCore(cores, cores[lastIndex]);    //particleSystem в позиции cores[lastIndex]   
-            //DeleteCore(cores, cores[lastIndex - 1]);
-
+            //particleSystem в позиции cores[lastIndex]   
         }
 
         for (int i = 0; i < cores.Count; i++)
         {
             cores[i].RemoveRigidbody();
         }
-    }
-
-    public void DeleteCore(List<Core> cores, Core core)
-    {
-        cores.Remove(core);
-        Destroy(core.gameObject);
     }
 
     private bool CanMerge(List<Core> cores)

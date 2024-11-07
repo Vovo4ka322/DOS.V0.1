@@ -338,6 +338,7 @@ MonoBehaviour:
   _enemyMovement: {fileID: 7376898109075578261}
   _type: 2
   <Health>k__BackingField: {fileID: 4462768762623809466}
+  <ScoreReward>k__BackingField: 200
 --- !u!114 &4462768762623809466
 MonoBehaviour:
   m_ObjectHideFlags: 0

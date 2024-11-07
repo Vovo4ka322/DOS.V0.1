@@ -220,6 +220,7 @@ MonoBehaviour:
   _enemyMovement: {fileID: 311136751369660555}
   _type: 3
   <Health>k__BackingField: {fileID: 4681643658300757102}
+  <ScoreReward>k__BackingField: 300
 --- !u!114 &4681643658300757102
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -246,7 +247,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c821e1efabb4bf34f91037ddfe9f7553, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 3
+  _speed: 0.7
 --- !u!1 &7575949127586914572
 GameObject:
   m_ObjectHideFlags: 0

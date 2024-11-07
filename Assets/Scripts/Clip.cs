@@ -82,7 +82,6 @@ public class Clip : MonoBehaviour
         if (_cores.Count > 0)
         {
             _cores[0].MoveToEnemy(target);
-            Debug.Log("core движется к цели");
         }
     }
 
@@ -93,7 +92,6 @@ public class Clip : MonoBehaviour
             Core core = _cores[0];
 
             _reservedCores.Remove(core);
-            //Destroy(core.gameObject);
             _cores.Remove(core);
             Destroy(core.gameObject);
         }
