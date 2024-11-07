@@ -9,7 +9,7 @@ public class UserInputHandler : MonoBehaviour
     [SerializeField] private AttackButton _attackButton;
     [SerializeField] private Cooldown _cooldown;
 
-    private float _timeToPressButton = 0.4f;
+    private float _timeToPressButton = 0.2f;
     private float _timeToPressCore = 0.2f;
 
     public int LineIndex { get; private set; }

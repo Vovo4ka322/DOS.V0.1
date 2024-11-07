@@ -13,6 +13,11 @@ public class Menu : MonoBehaviour
     [SerializeField] private Score _score;
     [SerializeField] private TextMeshProUGUI _textMeshProUGUI;
 
+    private void Awake()
+    {
+        Time.timeScale = 0f;
+    }
+
     public void PressPause() => Time.timeScale = 0f;
 
     public void PressResume() => Time.timeScale = 1f;
@@ -28,5 +33,10 @@ public class Menu : MonoBehaviour
         Time.timeScale = 0f;
         _losePanel.gameObject.SetActive(true);
         _textMeshProUGUI.text = _score.Value.ToString();
+    }
+
+    public void Play()
+    {
+        Time.timeScale = 1f;
     }
 }
