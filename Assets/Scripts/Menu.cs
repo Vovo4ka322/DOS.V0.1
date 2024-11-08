@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using YG;
 
 public class Menu : MonoBehaviour
 {
@@ -33,6 +34,7 @@ public class Menu : MonoBehaviour
         Time.timeScale = 0f;
         _losePanel.gameObject.SetActive(true);
         _textMeshProUGUI.text = _score.Value.ToString();
+        YandexGame.FullscreenShow();
     }
 
     public void Play()
