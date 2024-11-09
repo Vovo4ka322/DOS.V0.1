@@ -128,13 +128,13 @@ MonoBehaviour:
     _damage: 2
   - _material: {fileID: 2100000, guid: 801d91092c6d93d4abefff338f275513, type: 2}
     _value: 2
-    _damage: 4
+    _damage: 5
   - _material: {fileID: 2100000, guid: 1e64ed11050fb944ebb1c90784aaaf97, type: 2}
     _value: 3
-    _damage: 8
+    _damage: 11
   - _material: {fileID: 2100000, guid: 3d985e75b0856e74ab5ee8adacbdc562, type: 2}
     _value: 4
-    _damage: 16
+    _damage: 23
   _speed: 0.2
   _damage: 0
   _flightSpeed: 100
@@ -180,4 +180,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 595a7dd75d509d14fb28efb926c4d99e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _coreFlight: {fileID: 0}

@@ -11,15 +11,18 @@ public class Menu : MonoBehaviour
     [SerializeField] private Button _pause;
     [SerializeField] private Button _resume;
     [SerializeField] private Image _losePanel;
-    [SerializeField] private Score _score;
-    [SerializeField] private TextMeshProUGUI _textMeshProUGUI;
 
     private void Awake()
     {
         Time.timeScale = 0f;
     }
 
-    public void PressPause() => Time.timeScale = 0f;
+    public void PressPause()
+    {
+        Time.timeScale = 0f;
+        //YandexGame.FullscreenShow();
+    }
+    
 
     public void PressResume() => Time.timeScale = 1f;
 
@@ -33,12 +36,11 @@ public class Menu : MonoBehaviour
     {
         Time.timeScale = 0f;
         _losePanel.gameObject.SetActive(true);
-        _textMeshProUGUI.text = _score.Value.ToString();
-        YandexGame.FullscreenShow();
     }
 
     public void Play()
     {
+        YandexGame.FullscreenShow();
         Time.timeScale = 1f;
     }
 }
