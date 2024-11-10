@@ -12,17 +12,9 @@ public class Menu : MonoBehaviour
     [SerializeField] private Button _resume;
     [SerializeField] private Image _losePanel;
 
-    private void Awake()
-    {
-        Time.timeScale = 0f;
-    }
+    private void Awake() => Time.timeScale = 0f;
 
-    public void PressPause()
-    {
-        Time.timeScale = 0f;
-        //YandexGame.FullscreenShow();
-    }
-    
+    public void PressPause() => Time.timeScale = 0f;
 
     public void PressResume() => Time.timeScale = 1f;
 
