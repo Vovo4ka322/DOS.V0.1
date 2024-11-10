@@ -351,8 +351,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aed2a6302cc575a4a927f49847cc57eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <MaxHealth>k__BackingField: 400
-  <Health>k__BackingField: 400
+  <MaxHealth>k__BackingField: 500
+  <Health>k__BackingField: 500
 --- !u!114 &1840214728761494168
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -365,7 +365,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c821e1efabb4bf34f91037ddfe9f7553, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 1.5
+  _speed: 2
 --- !u!54 &8395265899442561577
 Rigidbody:
   m_ObjectHideFlags: 0

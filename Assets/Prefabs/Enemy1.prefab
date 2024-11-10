@@ -354,7 +354,7 @@ MonoBehaviour:
   _enemyMovement: {fileID: 7329114303029439752}
   _type: 0
   <Health>k__BackingField: {fileID: 7714131687370853032}
-  <ScoreReward>k__BackingField: 100
+  <ScoreReward>k__BackingField: 150
 --- !u!114 &7714131687370853032
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -367,8 +367,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aed2a6302cc575a4a927f49847cc57eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <MaxHealth>k__BackingField: 100
-  <Health>k__BackingField: 100
+  <MaxHealth>k__BackingField: 150
+  <Health>k__BackingField: 150
 --- !u!114 &7329114303029439752
 MonoBehaviour:
   m_ObjectHideFlags: 0

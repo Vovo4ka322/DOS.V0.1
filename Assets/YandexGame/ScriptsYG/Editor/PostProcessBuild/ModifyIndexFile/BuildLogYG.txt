@@ -1,2 +1,2 @@
-Build path: D:/Unity/MergeBuildV1.0
-Build number: 3
+Build path: D:/Unity/MergeBuldV2.0
+Build number: 4

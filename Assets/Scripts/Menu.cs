@@ -20,9 +20,7 @@ public class Menu : MonoBehaviour
     public void PressPause()
     {
         Time.timeScale = 0f;
-        //YandexGame.FullscreenShow();
     }
-    
 
     public void PressResume() => Time.timeScale = 1f;
 
