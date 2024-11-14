@@ -1,13 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyMovement : MonoBehaviour
+namespace Enemies
 {
-    [SerializeField] private float _speed;
-
-    public void Move(Transform target)
+    public class EnemyMovement : MonoBehaviour
     {
-        transform.position = Vector3.MoveTowards(transform.position, target.position, _speed * Time.deltaTime);
+        [SerializeField] private float _speed;
+
+        public void Move(Transform target)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, target.position, _speed * Time.deltaTime);
+        }
     }
 }

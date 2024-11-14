@@ -1,37 +1,38 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class ScoreViewer : MonoBehaviour
+namespace Scores
 {
-    [SerializeField] private Score _score;
-    [SerializeField] private TextMeshProUGUI[] _scoreText;
-    [SerializeField] private TextMeshProUGUI[] _highScoreText;
-
-    private void OnEnable()
+    public class ScoreViewer : MonoBehaviour
     {
-        _score.ValueChanged += OnValueChanged;
-        _score.HighValueChanged += OnHighValueChanged;
-    }
+        [SerializeField] private Score _score;
+        [SerializeField] private TextMeshProUGUI[] _scoreText;
+        [SerializeField] private TextMeshProUGUI[] _highScoreText;
 
-    private void Start() => SortOut(_score.HighValue, _highScoreText);
+        private void OnEnable()
+        {
+            _score.ValueChanged += OnValueChanged;
+            _score.HighValueChanged += OnHighValueChanged;
+        }
 
-    private void OnDisable()
-    {
-        _score.ValueChanged -= OnValueChanged;
-        _score.HighValueChanged -= OnHighValueChanged;
-    }
+        private void Start() => SortOut(_score.HighValue, _highScoreText);
 
-    private void OnValueChanged(float value) => SortOut(value, _scoreText);
+        private void OnDisable()
+        {
+            _score.ValueChanged -= OnValueChanged;
+            _score.HighValueChanged -= OnHighValueChanged;
+        }
 
-    private void OnHighValueChanged(float value) => SortOut(value, _highScoreText);
+        private void OnValueChanged(float value) => SortOut(value, _scoreText);
 
-    private void Change(float value, TextMeshProUGUI text) => text.text = value.ToString();
+        private void OnHighValueChanged(float value) => SortOut(value, _highScoreText);
 
-    private void SortOut(float value, TextMeshProUGUI[] texts)
-    {
-        foreach (var score in texts)
-            Change(value, score);
+        private void Change(float value, TextMeshProUGUI text) => text.text = value.ToString();
+
+        private void SortOut(float value, TextMeshProUGUI[] texts)
+        {
+            foreach (var score in texts)
+                Change(value, score);
+        }
     }
 }

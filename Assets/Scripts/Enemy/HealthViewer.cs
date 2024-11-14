@@ -1,37 +1,32 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HealthViewer : MonoBehaviour
+namespace Enemies
 {
-    [SerializeField] private EnemyHealth _healthBar;
-    [SerializeField] private TextMeshProUGUI _textMeshProUGUI;
-    [SerializeField] private Image _healthImage;
-
-    private float _maxHealth;
-
-    private void Awake()
+    public class HealthViewer : MonoBehaviour
     {
-        _maxHealth = _healthBar.MaxHealth;
+        [SerializeField] private EnemyHealth _healthBar;
+        [SerializeField] private TextMeshProUGUI _textMeshProUGUI;
+        [SerializeField] private Image _healthImage;
 
-        OnChanged(_healthBar.Health);
-    }
+        private float _maxHealth;
 
-    private void OnEnable()
-    {
-        _healthBar.Changed += OnChanged;
-    }
+        private void Awake()
+        {
+            _maxHealth = _healthBar.MaxHealth;
 
-    private void OnDisable()
-    {
-        _healthBar.Changed -= OnChanged;
-    }
+            OnChanged(_healthBar.Health);
+        }
 
-    private void OnChanged(int value)
-    {
-        _textMeshProUGUI.text = value.ToString() + " / " + _healthBar.MaxHealth;
-        _healthImage.fillAmount = Mathf.InverseLerp(0, _maxHealth, value);
+        private void OnEnable() => _healthBar.Changed += OnChanged;
+
+        private void OnDisable() => _healthBar.Changed -= OnChanged;
+
+        private void OnChanged(int value)
+        {
+            _textMeshProUGUI.text = value.ToString() + " / " + _healthBar.MaxHealth;
+            _healthImage.fillAmount = Mathf.InverseLerp(0, _maxHealth, value);
+        }
     }
 }

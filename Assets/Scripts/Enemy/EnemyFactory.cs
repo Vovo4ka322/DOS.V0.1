@@ -2,54 +2,57 @@
 using System.Linq;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "EnemyFactory", menuName = "Factory")]
-public class EnemyFactory : ScriptableObject
+namespace Enemies
 {
-    [SerializeField] private List<Enemy> _enemyPrefabs;
-
-    public Enemy Get(EnemyType enemyType, Vector3 spawnPoint)
+    [CreateAssetMenu(fileName = "EnemyFactory", menuName = "Factory")]
+    public class EnemyFactory : ScriptableObject
     {
-        Enemy enemy = TakeType(enemyType);
+        [SerializeField] private List<Enemy> _enemyPrefabs;
 
-        Enemy enemyToSpawn = CreateEnemy(spawnPoint, enemy);
-
-        return enemyToSpawn;
-    }
-
-    public Enemy GetDefault(Vector3 spawnPoint)
-    {
-        Enemy enemy = _enemyPrefabs.FirstOrDefault(enemy => enemy.Type == EnemyType.Lvl1);
-
-        Enemy enemyToSpawn = CreateEnemy(spawnPoint, enemy);
-
-        return enemyToSpawn;
-    }
-
-    private Enemy CreateEnemy(Vector3 spawnPoint, Enemy enemy)
-    {
-        return Instantiate(enemy, spawnPoint, Quaternion.identity);
-    }
-
-    private Enemy TakeType(EnemyType enemyType)
-    {
-        switch (enemyType)
+        public Enemy Get(EnemyType enemyType, Vector3 spawnPoint)
         {
-            case EnemyType.Lvl1:
-                return _enemyPrefabs.FirstOrDefault(enemy => enemy.Type == EnemyType.Lvl2);
+            Enemy enemy = TakeType(enemyType);
 
-            case EnemyType.Lvl2:
-                return _enemyPrefabs.FirstOrDefault(enemy => enemy.Type == EnemyType.Lvl3);
+            Enemy enemyToSpawn = CreateEnemy(spawnPoint, enemy);
 
-            case EnemyType.Lvl3:
-                return _enemyPrefabs.FirstOrDefault(enemy => enemy.Type == EnemyType.Lvl4);
+            return enemyToSpawn;
+        }
 
-            case EnemyType.Lvl4:
-                return _enemyPrefabs.FirstOrDefault(enemy => enemy.Type == EnemyType.Lvl5);
+        public Enemy GetDefault(Vector3 spawnPoint)
+        {
+            Enemy enemy = _enemyPrefabs.FirstOrDefault(enemy => enemy.Type == EnemyType.Lvl1);
 
-            case EnemyType.Lvl5:
-                return _enemyPrefabs.FirstOrDefault(enemy => enemy.Type == EnemyType.Lvl6);
+            Enemy enemyToSpawn = CreateEnemy(spawnPoint, enemy);
 
-            default: return _enemyPrefabs.FirstOrDefault(enemy => enemy.Type == EnemyType.Lvl1);
+            return enemyToSpawn;
+        }
+
+        private Enemy CreateEnemy(Vector3 spawnPoint, Enemy enemy)
+        {
+            return Instantiate(enemy, spawnPoint, Quaternion.identity);
+        }
+
+        private Enemy TakeType(EnemyType enemyType)
+        {
+            switch (enemyType)
+            {
+                case EnemyType.Lvl1:
+                    return _enemyPrefabs.FirstOrDefault(enemy => enemy.Type == EnemyType.Lvl2);
+
+                case EnemyType.Lvl2:
+                    return _enemyPrefabs.FirstOrDefault(enemy => enemy.Type == EnemyType.Lvl3);
+
+                case EnemyType.Lvl3:
+                    return _enemyPrefabs.FirstOrDefault(enemy => enemy.Type == EnemyType.Lvl4);
+
+                case EnemyType.Lvl4:
+                    return _enemyPrefabs.FirstOrDefault(enemy => enemy.Type == EnemyType.Lvl5);
+
+                case EnemyType.Lvl5:
+                    return _enemyPrefabs.FirstOrDefault(enemy => enemy.Type == EnemyType.Lvl6);
+
+                default: return _enemyPrefabs.FirstOrDefault(enemy => enemy.Type == EnemyType.Lvl1);
+            }
         }
     }
 }

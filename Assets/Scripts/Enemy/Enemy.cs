@@ -1,55 +1,53 @@
+using Cores;
 using System;
 using UnityEngine;
+using Scores;
 
-public class Enemy : MonoBehaviour
+namespace Enemies
 {
-    [SerializeField] private EnemyMovement _enemyMovement;
-    [SerializeField] private EnemyType _type;
-
-    private Score _score;
-    private Transform _target;
-
-    public event Action Hit;
-    public event Action<EnemyType> Died;
-
-    [field:SerializeField] public EnemyHealth Health {  get; private set; }
-
-    [field:SerializeField] public int ScoreReward {  get; private set; }
-
-    public EnemyType Type => _type;
-
-    public Transform Position => transform;
-
-    private void OnTriggerEnter(Collider collision)
+    public class Enemy : MonoBehaviour
     {
-        if(collision.gameObject.TryGetComponent(out Core core))
+        [SerializeField] private EnemyMovement _enemyMovement;
+        [SerializeField] private EnemyType _type;
+
+        private Score _score;
+        private Transform _target;
+
+        public event Action Hited;
+        public event Action<EnemyType> Died;
+
+        [field: SerializeField] public EnemyHealth Health { get; private set; }
+
+        [field: SerializeField] public int ScoreReward { get; private set; }
+
+        public EnemyType Type => _type;
+
+        private void OnTriggerEnter(Collider collision)
         {
-            Health.Lose(core.Damage);           
-            Hit?.Invoke();
-
-            if (Health.IsDead)
+            if (collision.gameObject.TryGetComponent(out Core core))
             {
-                Died?.Invoke(_type);
-                Destroy(gameObject);
+                Health.Lose(core.Damage);
+                Hited?.Invoke();
 
-                _score.Change(ScoreReward);
+                if (Health.IsDead)
+                {
+                    Died?.Invoke(_type);
+                    Destroy(gameObject);
+
+                    _score.Change(ScoreReward);
+                }
             }
         }
-    }
 
-    private void Update()
-    {
-        _enemyMovement.Move(_target);
-    }
+        private void Update()
+        {
+            _enemyMovement.Move(_target);
+        }
 
-    public void Init(Transform target, Score score)
-    {
-        _target = target;
-        _score = score;
+        public void Init(Transform target, Score score)
+        {
+            _target = target;
+            _score = score;
+        }
     }
-}
-
-public enum EnemyType
-{
-    Lvl1, Lvl2, Lvl3, Lvl4, Lvl5, Lvl6
 }

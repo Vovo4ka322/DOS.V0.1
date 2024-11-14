@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-using UnityEngine.SocialPlatforms.Impl;
 
 public class AttackButton : MonoBehaviour
 {

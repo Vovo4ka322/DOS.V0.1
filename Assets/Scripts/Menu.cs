@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -12,15 +9,9 @@ public class Menu : MonoBehaviour
     [SerializeField] private Button _resume;
     [SerializeField] private Image _losePanel;
 
-    private void Awake()
-    {
-        Time.timeScale = 0f;
-    }
+    private void Awake() => Time.timeScale = 0f;
 
-    public void PressPause()
-    {
-        Time.timeScale = 0f;
-    }
+    public void PressPause() => Time.timeScale = 0f;
 
     public void PressResume() => Time.timeScale = 1f;
 

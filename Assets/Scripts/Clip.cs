@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cores;
 
 public class Clip : MonoBehaviour
 {
@@ -10,15 +11,19 @@ public class Clip : MonoBehaviour
     [SerializeField] private UserInputHandler _userInputHandler;
     [SerializeField] private float _speedToClip;
     [SerializeField] private float _speedIntoClip = 0.1f;
-
     [SerializeField] private List<Core> _cores;
-    private List<Core> _reservedCores = new();
 
+    private List<Core> _reservedCores = new();
     private int _maxQuantity = 6;
     private int _firstLine = 0;
     private int _secondLine = 1;
     private int _thirdLine = 2;
     private int _fourthLine = 3;
+    private int _firstPosition = 0;
+    private int _secondPosition = 1;
+    private int _fistIndex = 0;
+    private int _lastIndex = 1;
+    private int _minValue = 0;
 
     public bool IsFullQuantity => _reservedCores.Count >= _maxQuantity;
 
@@ -34,13 +39,8 @@ public class Clip : MonoBehaviour
 
     private void UpdateCores(Core coreForDelete, Core coreForDelete2, Core newCore)
     {
-        _reservedCores.Remove(coreForDelete);
-        _cores.Remove(coreForDelete);
-        Destroy(coreForDelete.gameObject);
-
-        _reservedCores.Remove(coreForDelete2);
-        _cores.Remove(coreForDelete2);
-        Destroy(coreForDelete2.gameObject);
+        Remove(coreForDelete);
+        Remove(coreForDelete2);
 
         _reservedCores.Add(newCore);
         _cores.Add(newCore);
@@ -54,14 +54,14 @@ public class Clip : MonoBehaviour
 
         if (_cores.Count <= _maxQuantity)
         {
-            if (_userInputHandler.LineIndex == _firstLine)
-                last.Mover.MoveToClip(last.transform, _lines[_firstLine].GetPoints[0].position, _speedToClip, _lines[_firstLine].GetPoints[1].position, _placesForSeat[0].transform.position);
-            else if (_userInputHandler.LineIndex == _secondLine)
-                last.Mover.MoveToClip(last.transform, _lines[_secondLine].GetPoints[0].position, _speedToClip, _lines[_secondLine].GetPoints[1].position, _placesForSeat[0].transform.position);
-            else if (_userInputHandler.LineIndex == _thirdLine)
-                last.Mover.MoveToClip(last.transform, _lines[_thirdLine].GetPoints[0].position, _speedToClip, _lines[_thirdLine].GetPoints[1].position, _placesForSeat[0].transform.position);
-            else if (_userInputHandler.LineIndex == _fourthLine)
-                last.Mover.MoveToClip(last.transform, _lines[_fourthLine].GetPoints[0].position, _speedToClip, _lines[_fourthLine].GetPoints[1].position, _placesForSeat[0].transform.position);
+            if (IsMatch(_firstLine))
+                MoveToClip(last, _firstLine);
+            else if (IsMatch(_secondLine))
+                MoveToClip(last, _secondLine);
+            else if (IsMatch(_thirdLine))
+                MoveToClip(last, _thirdLine);
+            else if (IsMatch(_fourthLine))
+                MoveToClip(last, _fourthLine);
         }
     }
 
@@ -79,22 +79,31 @@ public class Clip : MonoBehaviour
 
     public void RemoveFirstElement(Transform target)
     {
-        if (_cores.Count > 0)
-        {
-            _cores[0].MoveToEnemy(target);
-        }
+        if (_cores.Count > _minValue)
+            _cores[_fistIndex].MoveToEnemy(target);
     }
 
     public void Remove()
     {
-        if (_cores.Count > 0)
+        if (_cores.Count > _minValue)
         {
-            Core core = _cores[0];
+            Core core = _cores[_fistIndex];
 
-            _reservedCores.Remove(core);
-            _cores.Remove(core);
-            Destroy(core.gameObject);
+            Remove(core);
         }
+    }
+
+    private void MoveToClip(Core last, int lineIndex)
+    {
+        last.Mover.MoveToClip(last.transform, _lines[lineIndex].GetPoints[_firstPosition].position, _speedToClip,
+            _lines[lineIndex].GetPoints[_secondPosition].position, _placesForSeat[_firstPosition].transform.position);
+    }
+
+    private void Remove(Core core)
+    {
+        _reservedCores.Remove(core);
+        _cores.Remove(core);
+        Destroy(core.gameObject);
     }
 
     private void Insert()
@@ -104,21 +113,24 @@ public class Clip : MonoBehaviour
             List<Transform> places = new(_cores.Count);
 
             for (int i = 0; i < _cores.Count; i++)
-            {
                 places.Add(_placesForSeat[i]);
-            }
 
             for (int i = 0; i < _cores.Count; i++)
             {
-                if (_userInputHandler.LineIndex == _firstLine)
-                    _cores[i].Mover.MoveIntoClip(_cores[i].transform, places[places.Count - 1 - i].transform.position, _speedIntoClip);
-                else if (_userInputHandler.LineIndex == _secondLine)
-                    _cores[i].Mover.MoveIntoClip(_cores[i].transform, places[places.Count - 1 - i].transform.position, _speedIntoClip);
-                else if (_userInputHandler.LineIndex == _thirdLine)
-                    _cores[i].Mover.MoveIntoClip(_cores[i].transform, places[places.Count - 1 - i].transform.position, _speedIntoClip);
-                else if (_userInputHandler.LineIndex == _fourthLine)
-                    _cores[i].Mover.MoveIntoClip(_cores[i].transform, places[places.Count - 1 - i].transform.position, _speedIntoClip);
+                if (IsMatch(_firstLine))
+                    MoveIntoClip(places, i);
+                else if (IsMatch(_secondLine))
+                    MoveIntoClip(places, i);
+                else if (IsMatch(_thirdLine))
+                    MoveIntoClip(places, i);
+                else if (IsMatch(_fourthLine))
+                    MoveIntoClip(places, i);
             }
         }
     }
+
+    private void MoveIntoClip(List<Transform> places, int i) => 
+        _cores[i].Mover.MoveIntoClip(_cores[i].transform, places[places.Count - _lastIndex - i].transform.position, _speedIntoClip); 
+
+    private bool IsMatch(int value) => _userInputHandler.LineIndex == value;
 }

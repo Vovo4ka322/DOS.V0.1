@@ -1,21 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class CoreSpawner : MonoBehaviour
+namespace Cores
 {
-    [SerializeField] private Core _corePrefab;
-
-    public Core Spawn(int value, Vector3 position)
+    public class CoreSpawner : MonoBehaviour
     {
-        Core core = CallIPrefab(position);
+        [SerializeField] private Core _corePrefab;
 
-        core.SetData(value);
+        public Core Spawn(int value, Vector3 position)
+        {
+            Core core = CallIPrefab(position);
 
-        return core;
+            core.SetData(value);
+
+            return core;
+        }
+
+        public Core Spawn(Vector3 position) => CallIPrefab(position);
+
+        private Core CallIPrefab(Vector3 position) => Instantiate(_corePrefab, position, Quaternion.identity);
     }
-
-    public Core Spawn(Vector3 position) => CallIPrefab(position);
-
-    private Core CallIPrefab(Vector3 position) => Instantiate(_corePrefab, position, Quaternion.identity);
 }

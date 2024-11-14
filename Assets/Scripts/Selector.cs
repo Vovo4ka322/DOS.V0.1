@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Selector : MonoBehaviour
@@ -24,13 +22,9 @@ public class Selector : MonoBehaviour
             if(Physics.Raycast(ray, out RaycastHit raycastHit))
             {
                 if(raycastHit.collider.TryGetComponent(out Line component))
-                {
                     CoreSelected?.Invoke(component);
-                }
                 else if(raycastHit.collider.TryGetComponent(out AttackButton _))
-                {
                     ButtonSelected?.Invoke();
-                }
             }
         }
     }
