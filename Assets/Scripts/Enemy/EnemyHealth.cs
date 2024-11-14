@@ -1,21 +1,22 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyHealth : MonoBehaviour
+namespace Enemies
 {
-    public event Action<int> Changed;
-
-    [field:SerializeField] public int MaxHealth {  get; private set; }
-
-    [field:SerializeField] public int Health {  get; private set; }
-
-    public bool IsDead => Health <= 0;
-
-    public void Lose(int damage)
+    public class EnemyHealth : MonoBehaviour
     {
-        Health = Mathf.Clamp(Health - damage, 0, MaxHealth);
-        Changed?.Invoke(Health);
+        public event Action<int> Changed;
+
+        [field: SerializeField] public int MaxHealth { get; private set; }
+
+        [field: SerializeField] public int Health { get; private set; }
+
+        public bool IsDead => Health <= 0;
+
+        public void Lose(int damage)
+        {
+            Health = Mathf.Clamp(Health - damage, 0, MaxHealth);
+            Changed?.Invoke(Health);
+        }
     }
 }

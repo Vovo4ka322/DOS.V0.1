@@ -1,15 +1,11 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Cooldown : MonoBehaviour
 {
     public bool CanUse {  get; private set; }
 
-    private void Awake()
-    {
-        CanUse = true;
-    }
+    private void Awake() => CanUse = true;
 
     public void LaunchTimer(float time) => StartCoroutine(StartTimer(time));
 
